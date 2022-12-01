@@ -54,14 +54,16 @@ export default function(opt) {
         const clientId = ctx.params.id;
         const client = manager.getClient(clientId);
         if (!client) {
-            ctx.throw(404);
-            return;
+            ctx.body = {
+                delete_status: "not_found",
+            };
+        } else {
+            manager.removeClient(clientId);
+            ctx.body = {
+                delete_status: "success",
+            };
         }
 
-        manager.removeClient(clientId);
-        ctx.body = {
-            delete_status: "success",
-        };
     });
 
     app.use(router.routes());

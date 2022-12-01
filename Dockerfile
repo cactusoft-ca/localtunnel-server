@@ -1,11 +1,11 @@
-FROM node:10.1.0-alpine
+FROM node:lts-alpine
 
 WORKDIR /app
 
 COPY package.json /app/
-COPY yarn.lock /app/
+COPY package-lock.json /app/
 
-RUN yarn install --production && yarn cache clean
+RUN npm ci --production
 
 COPY . /app
 
